@@ -40,18 +40,18 @@ require("header.php");
             return false;
         }
 
-        if (email == '') 
+        if (email.value == '') 
         {
             alert("Please enter youe email."); 
             return false;
         }
 
-        /*        var format = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        if (! format.test(email) ) 
+        var format = /([\w\-]+\@[\w\-]+\.[\w\-]+)/;
+        if (! format.test(email.value) ) 
         {
             alert("PLease enter a valid email address."); 
             return false;
-            }*/
+        }
     }
 </script>
 
