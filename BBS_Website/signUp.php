@@ -46,12 +46,12 @@ require("header.php");
             return false;
         }
 
-        var format = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+        /*        var format = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
         if (! format.test(email) ) 
         {
             alert("PLease enter a valid email address."); 
             return false;
-        }
+            }*/
     }
 </script>
 
