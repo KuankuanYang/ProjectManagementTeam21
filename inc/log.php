@@ -11,9 +11,9 @@ else
 {
 	if(!isset($_SESSION))
 		session_start();
-        $_SESSION["username"]=$row['username'];
+        $_SESSION["name"]=$row['name'];
         $_SESSION["log"]="YES";
-	header("Location:/BBS_Website/index.php");
+	header("Location:/ProjectManagementTeam21/index.php");
 }
 
 //echo isset($_SESSION["log"]);

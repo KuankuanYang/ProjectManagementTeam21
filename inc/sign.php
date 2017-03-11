@@ -42,11 +42,7 @@ if(!empty($username))
             echo 'Mysql error: ' . mysql_error();
             exit;
         }
-
-        session_start();
-        $_SESSION["Username"]=$username;
-        $_SESSION["log"]="YES";
-        header("Location:/BBS_Website/index.php");
+        header("Location:/ProjectManagementTeam21/logIn.php");
     }
 }
 

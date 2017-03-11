@@ -25,7 +25,7 @@ require("header.php");
 
                                         <!-- Basic Home Page Template -->
                                         <div class="row separator">
-                                                <section class="span4 articles-list">
+                                                <section class="span8 articles-list">
                                                         <h3>Featured Articles</h3>
                                                         <ul class="articles">
                                                                 <li class="article-entry standard">
@@ -60,99 +60,63 @@ require("header.php");
                                                                 </li>
                                                         </ul>
                                                 </section>
-<!--##########################################################################################################-->
-                                                        <section class="span4 articles-list">
-                                                                <h3>Latest Articles</h3>
-                                                                <ul class="articles">
-                                                                        <li class="article-entry standard">
-                                                                                <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
-                                                                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                                                                <span class="like-count">66</span>
-                                                                        </li>
-                                                                        <li class="article-entry standard">
-                                                                                <h4><a href="single.html">Using Javascript</a></h4>
-                                                                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                                                                <span class="like-count">18</span>
-                                                                        </li>
-                                                                        <li class="article-entry image">
-                                                                                <h4><a href="single.html">Using Images</a></h4>
-                                                                                <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Designing in WordPress">Designing in WordPress</a></span>
-                                                                                <span class="like-count">7</span>
-                                                                        </li>
-                                                                        <li class="article-entry video">
-                                                                                <h4><a href="single.html">Using Video</a></h4>
-                                                                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in WordPress Plugins">WordPress Plugins</a></span>
-                                                                                <span class="like-count">7</span>
-                                                                        </li>
-                                                                        <li class="article-entry standard">
-                                                                                <h4><a href="single.html">WordPress Site Maintenance</a></h4>
-                                                                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                                <span class="like-count">15</span>
-                                                                        </li>
-                                                                        <li class="article-entry standard">
-                                                                                <h4><a href="single.html">WordPress CSS Information and Techniques</a></h4>
-                                                                                <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Theme Development">Theme Development</a></span>
-                                                                                <span class="like-count">1</span>
-                                                                        </li>
-                                                                </ul>
-                                                        </section>
-                                                </div>
-
-                                                <div class="row home-category-list-area">
-                                                        <div class="span8">
-                                                                <h2>Categories</h2>
-                                                        </div>
-                                                </div>
-
-                                                <div class="row-fluid top-cats">
-
-                                                        <section class="span4">
-                                                                <h4 class="category"><a href="#">WordPress for Beginners</a></h4>
-                                                                <div class="category-description">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
-                                                                </div>
-                                                        </section>
-
-                                                        <section class="span4">
-                                                                <h4 class="category"><a href="#">Designing in WordPress</a></h4>
-                                                                <div class="category-description">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>
-                                                                </div>
-                                                        </section>
-
-                                                        <section class="span4">
-                                                                <h4 class="category"><a href="#">Theme Development</a></h4>
-                                                                <div class="category-description">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna</p>
-                                                                </div>
-                                                        </section>
-                                                </div>
-                                                <div class="row-fluid top-cats">
-
-                                                        <section class="span4">
-                                                                <h4 class="category"><a href="#">Website Dev</a></h4>
-                                                                <div class="category-description">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam</p>
-                                                                </div>
-                                                        </section>
-
-                                                        <section class="span4">
-                                                                <h4 class="category">
-                                                                        <a href="#">WordPress Plugins</a></h4>
-                                                                <div class="category-description">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
-                                                                </div>
-                                                        </section>
-
-                                                        <section class="span4">
-                                                                <h4 class="category"><a href="#">Advanced Techniques</a></h4>
-                                                                <div class="category-description"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut</p>
-                                                                </div>
-                                                        </section>
-                                                </div>
-
                                         </div>
-                                        <!-- end of page content -->
+
+                                        <div class="row home-category-list-area">
+                                                <div class="span8">
+                                                        <h2>Categories</h2>
+                                                </div>
+                                        </div>
+
+                                        <div class="row-fluid top-cats">
+
+                                                <section class="span4">
+                                                        <h4 class="category"><a href="#">WordPress for Beginners</a></h4>
+                                                        <div class="category-description">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat</p>
+                                                        </div>
+                                                </section>
+
+                                                <section class="span4">
+                                                        <h4 class="category"><a href="#">Designing in WordPress</a></h4>
+                                                        <div class="category-description">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet</p>
+                                                        </div>
+                                                </section>
+
+                                                <section class="span4">
+                                                        <h4 class="category"><a href="#">Theme Development</a></h4>
+                                                        <div class="category-description">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna</p>
+                                                        </div>
+                                                </section>
+                                        </div>
+                                        <div class="row-fluid top-cats">
+
+                                                <section class="span4">
+                                                        <h4 class="category"><a href="#">Website Dev</a></h4>
+                                                        <div class="category-description">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam</p>
+                                                        </div>
+                                                </section>
+
+                                                <section class="span4">
+                                                        <h4 class="category">
+                                                                <a href="#">WordPress Plugins</a></h4>
+                                                        <div class="category-description">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore</p>
+                                                        </div>
+                                                </section>
+
+                                                <section class="span4">
+                                                        <h4 class="category"><a href="#">Advanced Techniques</a></h4>
+                                                        <div class="category-description"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut</p>
+                                                        </div>
+                                                </section>
+                                        </div>
+
+                                </div>
+                                <!-- end of page content -->
 
 
                                         <!-- start of sidebar -->

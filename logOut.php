@@ -3,6 +3,6 @@
 session_start();        
 session_unset();        
 session_destroy();      
-header("location: /BBS_Website/index.php");
+header("location: /ProjectManagementTeam21/index.php");
 
 ?>
