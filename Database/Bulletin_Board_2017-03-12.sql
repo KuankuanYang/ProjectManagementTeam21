@@ -20,6 +20,50 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+# Dump of table user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `gender` varchar(255) DEFAULT '',
+  `isAdmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not admin, 1=admin',
+  `site` varchar(255) DEFAULT NULL,
+  `about` varchar(255) DEFAULT NULL,
+  `isBlock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not block, 1=block',
+  `cTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+# Dump of table category
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `category`;
+
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `catName` varchar(255) NOT NULL DEFAULT '' COMMENT 'The name of category',
+  `catTime` datetime DEFAULT NULL COMMENT 'The time of creation',
+  `catSet` int(11) NOT NULL DEFAULT '0',
+  `catDesc` text COMMENT 'The description of category',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `category` (`id`, `catName`, `catTime`, `catSet`, `catDesc`)
+VALUES
+	(1,'Events',NULL,0,NULL),
+	(2,'Shopping',NULL,0,NULL),
+	(3,'Education',NULL,0,NULL),
+	(4,'Health',NULL,0,NULL),
+	(5,'Accommodation',NULL,0,NULL);
+
+
 # Dump of table article
 # ------------------------------------------------------------
 
@@ -38,36 +82,6 @@ CREATE TABLE `article` (
   CONSTRAINT `post_topic` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`),
   CONSTRAINT `post_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table category
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `category`;
-
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `catName` varchar(255) NOT NULL DEFAULT '' COMMENT 'The name of category',
-  `catTime` datetime DEFAULT NULL COMMENT 'The time of creation',
-  `catSet` int(11) NOT NULL DEFAULT '0',
-  `catDesc` text COMMENT 'The description of category',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-
-INSERT INTO `category` (`id`, `catName`, `catTime`, `catSet`, `catDesc`)
-VALUES
-	(1,'Events',NULL,0,NULL),
-	(2,'Shopping',NULL,0,NULL),
-	(3,'Education',NULL,0,NULL),
-	(4,'Health',NULL,0,NULL),
-	(5,'Accommodation',NULL,0,NULL);
-
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table comment
@@ -90,35 +104,6 @@ CREATE TABLE `comment` (
 
 
 
-# Dump of table user
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `username` varchar(255) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '',
-  `email` varchar(255) NOT NULL DEFAULT '',
-  `gender` varchar(255) DEFAULT '',
-  `isAdmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not admin, 1=admin',
-  `site` varchar(255) DEFAULT NULL,
-  `about` varchar(255) DEFAULT NULL,
-  `isBlock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not block, 1=block',
-  `cTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-
-INSERT INTO `user` (`id`, `name`, `username`, `password`, `email`, `gender`, `isAdmin`, `site`, `about`, `isBlock`, `cTime`)
-VALUES
-	(7,'Yuhao','yuhao','123456','yuhao@kb.com','male',0,NULL,NULL,0,'2017-03-11 22:19:11');
-
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
