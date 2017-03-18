@@ -65,7 +65,7 @@
 														</li>
                                                         <?php if ($admin==1){ ?>
 														<li>
-														<a href="admin/index.php">Administrate</a>
+														<a href="admin.php">Administrate</a>
 														</li>
                                                         <?php } ?>
 														<li>

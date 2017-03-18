@@ -11,8 +11,11 @@ if(isset($_SESSION["username"]))
     $name=$user['name'];
     $admin=$user['isAdmin'];
 }
+else{
+    header("Location:/ProjectManagementTeam21/index.php");
+}
 
-$query=mysql_query("select catid, catName, catDesc from category");
+$query=mysql_query("select id, catName, catDesc from category");
 $new=array();
 $x=1;
 while($row = mysql_fetch_array($query,MYSQL_ASSOC)){

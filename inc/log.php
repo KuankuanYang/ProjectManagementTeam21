@@ -1,5 +1,5 @@
 <?php
-include "connectDB.php";
+include "inc/connectDB.php";
 
 $sql="select * from user where username='$_POST[username]'";
 $result=mysql_query($sql) or die('MySQL Error: ' . mysqli_error());
@@ -11,9 +11,10 @@ else
 {
 	if(!isset($_SESSION))
 		session_start();
-        $_SESSION["name"]=$row['name'];
-        $_SESSION["log"]="YES";
-	header("Location:/ProjectManagementTeam21/index.php");
+        $_SESSION["username"]=$row['name'];
+
+        $_SESSION["log"]="YES"; 
+	
 }
 
 //echo isset($_SESSION["log"]);
