@@ -1,5 +1,5 @@
 <?php
-include "inc/connectDB.php";
+include "connectDB.php";
 
 $sql="select * from user where username='$_POST[username]'";
 $result=mysql_query($sql) or die('MySQL Error: ' . mysqli_error());
@@ -17,7 +17,9 @@ else
 	
 }
 
+
 //echo isset($_SESSION["log"]);
 //echo $_SESSION["username"];
 
+header("location: /ProjectManagementTeam21/index.php");
 ?>

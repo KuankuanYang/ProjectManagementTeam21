@@ -63,7 +63,7 @@ require("header.php");
                 <div id="respond">
                 <h3>Sign Up</h3>
 
-                <form action="inc/sign.php" method="post" id="signUp" onsubmit= "return doCheck()">
+                <form action="inc/signUp.php" method="post" id="signUp" onsubmit= "return doCheck()">
 
                     <p>Required fields are marked <span class="required">*</span></p>
 

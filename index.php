@@ -7,7 +7,7 @@ if(isset($_SESSION["username"])){
 $username=$_SESSION["username"];
 $userinfo=mysql_query("select * from user where username='$username'");
 $user=mysql_fetch_array($userinfo);
-$uid=$user['id'];
+$uid=$user['uid'];
 $name=$user['name'];
 $admin=$user['isAdmin'];
 }

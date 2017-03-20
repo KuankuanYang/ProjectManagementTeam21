@@ -69,7 +69,7 @@
 														</li>
                                                         <?php } ?>
 														<li>
-														<a href="logout.php">Log Out</a>
+														<a href="inc/logout.php">Log Out</a>
 														</li>
                                                         <?php } ?>
                                                     </ul>

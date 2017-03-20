@@ -8,7 +8,7 @@
 
         if(username.value=="")
         {
-            alert("Please enter you username.");
+            alert("Please enter your username.");
             return false;
         }
 
@@ -28,7 +28,7 @@
                 <div id="respond">
                 <h3>Log In</h3>
 
-                <form action="inc/log.php" method="post" id="logIn" onsubmit= "return doCheck()">
+                <form action="inc/logIn.php" method="post" id="logIn" onsubmit= "return doCheck()">
 
                     <div>
                         <label for="username">Username</label>

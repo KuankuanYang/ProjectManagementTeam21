@@ -2,15 +2,38 @@
 session_start();
 include "inc/connectDB.php";
 
+$tid=$_GET["tid"];
+
 //头部导航
 if(isset($_SESSION["username"])){
 $username=$_SESSION["username"];
 $userinfo=mysql_query("select * from user where username='$username'");
 $user=mysql_fetch_array($userinfo);
-$uid=$user['id'];
+$uid=$user['uid'];
 $name=$user['name'];
-$admin=$user['isadmin'];
+$admin=$user['isAdmin'];
 }
+
+$query=mysql_query("select * from topic where tid='$tid'");
+$topic=mysql_fetch_array($query,MYSQL_ASSOC);
+//print_r($topic);
+
+$sql1="select catid,catName from category where catid=".$topic['categoryId'];
+$query1=mysql_query($sql1);
+$category=mysql_fetch_array($query1,MYSQL_ASSOC);
+
+$sql2="select uid,name from user where uid=".$topic['userId'];
+$query2=mysql_query($sql2);
+$author=mysql_fetch_array($query2,MYSQL_ASSOC);
+
+$query3=mysql_query("select * from comment,user where comment.userId=user.uid and topicId='$tid'");
+$comment=array();
+$x=1;
+while($row = mysql_fetch_array($query,MYSQL_ASSOC)){
+        $comment[$x] = $row;
+        $x++;
+}
+//print_r($comment);
 
 require("header.php");
 ?>
@@ -25,25 +48,25 @@ require("header.php");
 
                                 <ul class="breadcrumb">
                                         <li><a href="categoryList.php">Category List</a><span class="divider">/</span></li>
-                                        <li><a href="topicList.php" title="View all posts in the category">Server &amp; Database</a> <span class="divider">/</span></li>
-                                        <li class="active">Integrating WordPress with Your Website</li>
+                                        <li><a href="topicList.php?cid=<?php echo $category['cid']; ?>" title="View all posts in the category"><?php echo $category['catName']; ?></a> <span class="divider">/</span></li>
+                                        <li class="active"><?php echo $topic['title']; ?></li>
                                 </ul>
 
                                 <article class=" type-post format-standard hentry clearfix">
 
-                                        <h1 class="post-title"><a href="#">Integrating WordPress with Your Website</a></h1>
+                                        <h1 class="post-title"><?php echo $topic['title']; ?></h1>
 
                                         <div class="post-meta clearfix">
-                                                <span class="date">25 Feb, 2013</span>
-                                                <span class="category"><a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
+                                                <span class="date"><?php echo $topic['topTime']; ?></span>
+                                                <span class="category"><a href="categoryList.php?cid=<?php echo $category['cid']; ?>" title="View all posts"><?php echo $category['catName']; ?></a></span>
+                                                <span class="author"><?php echo $author['name'];?></span>
                                                 <span class="comments"><a href="#" title="Comment on Integrating WordPress with Your Website">3 Comments</a></span>
+
                                         </div><!-- end of post meta -->
 
-                                        <p>Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.&nbsp;Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next day, ready for a mindless stream of tasks and distractions.</p>
-
-                                        <p>I am a fan of going against the stream of what most people do, and taking a step back. Is it really worth it? Is this the best way? Are we losing our lives to busy-ness and distraction?</p>
-
-                                        <p>What if we did less instead?&nbsp;Of course, I’ve been suggesting doing less for six years here on Zen Habits, but it’s a topic worth revisiting, because&nbsp;<em>it is so necessary</em>. Today I offer a short guide to doing less, for those willing to give it a try.</p>
+                                        <div>
+                                                <?php echo $topic['content']; ?>     
+                                        </div>
 
                                 </article>
 
@@ -153,7 +176,7 @@ require("header.php");
 
                                                 <h3>Leave a Comment</h3>
 
-                                                <form action="#" method="post" id="commentform">
+                                                <form action="/control/newComment.php?tid=<?php echo $tid ?>" method="post" id="commentform">
 
                                                         <div>
                                                                 <label for="comment">Comment</label>
