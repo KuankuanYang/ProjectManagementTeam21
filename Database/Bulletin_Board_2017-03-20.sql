@@ -39,10 +39,11 @@ CREATE TABLE `user` (
   `cTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 # Dump of table category
 # ------------------------------------------------------------
-
-
 
 DROP TABLE IF EXISTS `category`;
 
@@ -74,10 +75,12 @@ CREATE TABLE `topic` (
   KEY `post_user` (`userId`),
   CONSTRAINT `post_topic` FOREIGN KEY (`categoryId`) REFERENCES `category` (`catid`),
   CONSTRAINT `post_user` FOREIGN KEY (`userId`) REFERENCES `user` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;# Dump of table comment
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table comment
 # ------------------------------------------------------------
-
-
 
 DROP TABLE IF EXISTS `comment`;
 
