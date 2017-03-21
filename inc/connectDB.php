@@ -2,7 +2,7 @@
 	//Database Info
 	$host = "localhost";
 	$user = "root";
-	$password ="123456"; // change the information about database when you configure it on your computer
+	$password =""; // change the information about database when you configure it on your computer
 	$db = "Bulletin_Board";
 
 	//Connect Database
