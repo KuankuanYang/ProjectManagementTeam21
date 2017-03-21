@@ -1,4 +1,4 @@
-﻿# ************************************************************
+# ************************************************************
 # Sequel Pro SQL dump
 # Version 4541
 #
@@ -20,8 +20,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+# Dump of table user
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `gender` varchar(255) DEFAULT '',
+  `isAdmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not admin, 1=admin',
+  `site` varchar(255) DEFAULT NULL,
+  `about` varchar(255) DEFAULT NULL,
+  `isBlock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not block, 1=block',
+  `cTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 # Dump of table category
 # ------------------------------------------------------------
+
+
 
 DROP TABLE IF EXISTS `category`;
 
@@ -32,26 +53,6 @@ CREATE TABLE `category` (
   `catSet` int(11) NOT NULL DEFAULT '0',
   `catDesc` varchar(255) DEFAULT NULL COMMENT 'The description of category',
   PRIMARY KEY (`catid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table comment
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `comment`;
-
-CREATE TABLE `comment` (
-  `comid` int(11) NOT NULL AUTO_INCREMENT,
-  `topicId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `content` varchar(255) NOT NULL,
-  `comTime` datetime NOT NULL,
-  PRIMARY KEY (`comid`),
-  KEY `comment_post` (`topicId`),
-  KEY `comment_user` (`userId`),
-  CONSTRAINT `comment_post` FOREIGN KEY (`topicId`) REFERENCES `topic` (`tid`),
-  CONSTRAINT `comment_user` FOREIGN KEY (`userId`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -73,29 +74,27 @@ CREATE TABLE `topic` (
   KEY `post_user` (`userId`),
   CONSTRAINT `post_topic` FOREIGN KEY (`categoryId`) REFERENCES `category` (`catid`),
   CONSTRAINT `post_user` FOREIGN KEY (`userId`) REFERENCES `user` (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-# Dump of table user
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;# Dump of table comment
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `user` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `username` varchar(255) NOT NULL DEFAULT '',
-  `password` varchar(255) NOT NULL DEFAULT '',
-  `email` varchar(255) NOT NULL DEFAULT '',
-  `gender` varchar(255) DEFAULT '',
-  `isAdmin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not admin, 1=admin',
-  `site` varchar(255) DEFAULT NULL,
-  `about` varchar(255) DEFAULT NULL,
-  `isBlock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0=not block, 1=block',
-  `cTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`uid`)
+
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment` (
+  `comid` int(11) NOT NULL AUTO_INCREMENT,
+  `topicId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `comTime` datetime NOT NULL,
+  PRIMARY KEY (`comid`),
+  KEY `comment_post` (`topicId`),
+  KEY `comment_user` (`userId`),
+  CONSTRAINT `comment_post` FOREIGN KEY (`topicId`) REFERENCES `topic` (`tid`),
+  CONSTRAINT `comment_user` FOREIGN KEY (`userId`) REFERENCES `user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 
 
