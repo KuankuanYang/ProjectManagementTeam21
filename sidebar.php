@@ -28,16 +28,6 @@ $cat4=mysql_query("select * from category where catSet=4");
         </section>
 
         <section class="widget">
-                <h3 class="title">Recent Comments</h3>
-                <ul id="recentcomments">
-                        <li class="recentcomments"><a href="#" rel="external nofollow" class="url">John Doe</a> on <a href="#">Integrating WordPress with Your Website</a></li>
-                        <li class="recentcomments">saqib sarwar on <a href="#">Integrating WordPress with Your Website</a></li>
-                        <li class="recentcomments"><a href="#" rel="external nofollow" class="url">John Doe</a> on <a href="#">Integrating WordPress with Your Website</a></li>
-                        <li class="recentcomments"><a href="#" rel="external nofollow" class="url">Mr WordPress</a> on <a href="#">Installing WordPress</a></li>
-                </ul>
-        </section>
-
-        <section class="widget">
                 <div class="support-widget">
                         <h3 class="title">Support</h3>
                         <p class="intro">Need more support? If you did not found an answer, contact us for further help.</p>

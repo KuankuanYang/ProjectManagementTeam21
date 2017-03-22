@@ -4,17 +4,17 @@ include "inc/connectDB.php";
 
 $tid=$_GET["tid"];
 
-//头部导航
 if(isset($_SESSION["username"])){
-$username=$_SESSION["username"];
-$userinfo=mysql_query("select * from user where username='$username'");
-$user=mysql_fetch_array($userinfo);
-$uid=$user['uid'];
-$name=$user['name'];
-$admin=$user['isAdmin'];
+        $username=$_SESSION["username"];
+        $userinfo=mysql_query("select * from user where username='$username'");
+        $user=mysql_fetch_array($userinfo);
+        $uid=$user['uid'];
+        $name=$user['name'];
+        $admin=$user['isAdmin'];
 }
 
-$query=mysql_query("select * from topic where tid='$tid'");
+$sql="select * from topic where tid=".$tid;
+$query=mysql_query($sql);
 $topic=mysql_fetch_array($query,MYSQL_ASSOC);
 //print_r($topic);
 
@@ -26,17 +26,54 @@ $sql2="select uid,name from user where uid=".$topic['userId'];
 $query2=mysql_query($sql2);
 $author=mysql_fetch_array($query2,MYSQL_ASSOC);
 
-$query3=mysql_query("select * from comment,user where comment.userId=user.uid and topicId='$tid'");
+$query4="select * from comment where topicId=$tid";
+$result=mysql_query($query4);
+$totalnum=mysql_num_rows($result);
+$pagesize=1;
+
+if(isset($_GET['page'])){
+$page=$_GET['page'];
+}
+//$page=$_GET["page"];
+if(isset($page)==""){
+$page=1;
+}
+
+$begin=($page-1)*$pagesize;
+$totalpage=ceil($totalnum/$pagesize);
+$datanum=mysql_num_rows($result);
+
+$sql3="select * from comment,user where comment.userId=user.uid and comment.topicId=".$tid." LIMIT $begin, $pagesize";
+$query3=mysql_query($sql3);
 $comment=array();
 $x=1;
-while($row = mysql_fetch_array($query,MYSQL_ASSOC)){
+while($row = mysql_fetch_array($query3,MYSQL_ASSOC)){
         $comment[$x] = $row;
         $x++;
 }
-//print_r($comment);
+//print_r($comment[1]['name']);
 
 require("header.php");
 ?>
+
+<script type="text/javascript">
+        function SwapTxt()
+        {
+                var txt = document.getElementById("comment").value;
+                document.getElementById("lyny").innerHTML=txt;
+        }
+
+        function doCheck()
+        {
+                var content = document.getElementById("comment").value;
+
+                if(content.value=="")
+                {
+                        alert("Please enter the comment.");
+                        return false;
+                }
+        }
+</script>
 
 <!-- Start of Page Container -->
 <div class="page-container">
@@ -48,7 +85,7 @@ require("header.php");
 
                                 <ul class="breadcrumb">
                                         <li><a href="categoryList.php">Category List</a><span class="divider">/</span></li>
-                                        <li><a href="topicList.php?cid=<?php echo $category['cid']; ?>" title="View all posts in the category"><?php echo $category['catName']; ?></a> <span class="divider">/</span></li>
+                                        <li><a href="topicList.php?cid=<?php echo $category['catid']; ?>" title="View all posts in the category"><?php echo $category['catName']; ?></a> <span class="divider">/</span></li>
                                         <li class="active"><?php echo $topic['title']; ?></li>
                                 </ul>
 
@@ -58,9 +95,9 @@ require("header.php");
 
                                         <div class="post-meta clearfix">
                                                 <span class="date"><?php echo $topic['topTime']; ?></span>
-                                                <span class="category"><a href="categoryList.php?cid=<?php echo $category['cid']; ?>" title="View all posts"><?php echo $category['catName']; ?></a></span>
+                                                <span class="category"><a href="categoryList.php?cid=<?php echo $category['catid']; ?>" title="View all posts"><?php echo $category['catName']; ?></a></span>
                                                 <span class="author"><?php echo $author['name'];?></span>
-                                                <span class="comments"><a href="#" title="Comment on Integrating WordPress with Your Website">3 Comments</a></span>
+                                                <span class="comments"><a href="#" title="Comment on Integrating WordPress with Your Website"><?php echo $totalnum; ?> Comments</a></span>
 
                                         </div><!-- end of post meta -->
 
@@ -72,116 +109,78 @@ require("header.php");
 
                                 <section id="comments">
 
-                                        <h3 id="comments-title">(3) Comments</h3>
+                                        <h4 id="comments-title"><?php echo $totalnum; ?> Comments</h4>
 
                                         <ol class="commentlist">
 
+                                                <?php
+                                                $i = 1;
+
+                                                for($i = 1; $i < $x; $i++)
+                                                {
+                                                ?>
+
                                                 <li class="comment even thread-even depth-1" id="li-comment-2">
-                                                        <article id="comment-2">
-
-                                                                <a href="#">
-                                                                        <img alt="" src="http://1.gravatar.com/avatar/50a7625001317a58444a20ece817aeca?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G" class="avatar avatar-60 photo" height="60" width="60">
-                                                                </a>
-
+                                                        <article>
+                                                                
                                                                 <div class="comment-meta">
 
                                                                         <h5 class="author">
                                                                                 <cite class="fn">
-                                                                                        <a href="#" rel="external nofollow" class="url">John Doe</a>
+                                                                                        <a href="#" rel="external nofollow" class="url"><?php echo $comment[$i]['name']; ?></a>
                                                                                 </cite>
-                                                                                - <a class="comment-reply-link" href="#">Reply</a>
+                                                                                - <time><?php echo $comment[$i]['comTime']; ?></time>
                                                                         </h5>
 
-                                                                        <p class="date">
-                                                                                <a href="#">
-                                                                                        <time datetime="2013-02-26T13:18:47+00:00">February 26, 2013 at 1:18 pm</time>
-                                                                                </a>
-                                                                        </p>
-
                                                                 </div><!-- end .comment-meta -->
-
+                                                                        <?php echo $comment[$i]['content']; ?>
                                                                 <div class="comment-body">
-                                                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
-                                                                        <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
+                                                                        
                                                                 </div><!-- end of comment-body -->
 
                                                         </article><!-- end of comment -->
 
-                                                        <ul class="children">
-
-                                                                <li class="comment byuser comment-author-saqib-sarwar bypostauthor odd alt depth-2" id="li-comment-3">
-                                                                        <article id="comment-3">
-
-                                                                                <a href="#">
-                                                                                        <img alt="" src="http://0.gravatar.com/avatar/2df5eab0988aa5ff219476b1d27df755?s=60&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G" class="avatar avatar-60 photo" height="60" width="60">
-                                                                                </a>
-
-                                                                                <div class="comment-meta">
-
-                                                                                        <h5 class="author">
-                                                                                                <cite class="fn">saqib sarwar</cite>
-                                                                                                - <a class="comment-reply-link" href="#">Reply</a>
-                                                                                        </h5>
-
-                                                                                        <p class="date">
-                                                                                                <a href="#">
-                                                                                                        <time datetime="2013-02-26T13:20:14+00:00">February 26, 2013 at 1:20 pm</time>
-                                                                                                </a>
-                                                                                        </p>
-
-                                                                                </div><!-- end .comment-meta -->
-
-                                                                                <div class="comment-body">
-                                                                                        <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
-                                                                                </div><!-- end of comment-body -->
-
-                                                                        </article><!-- end of comment -->
-
-                                                                </li>
-                                                        </ul>
                                                 </li>
+                                                <?php
+                                                }
+                                                ?>
 
-                                                <li class="comment even thread-odd thread-alt depth-1" id="li-comment-4">
-                                                        <article id="comment-4">
-
-                                                                <a href="#">
-                                                                        <img alt="" src="http://1.gravatar.com/avatar/50a7625001317a58444a20ece817aeca?s=60&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G" class="avatar avatar-60 photo" height="60" width="60">
-                                                                </a>
-
-                                                                <div class="comment-meta">
-
-                                                                        <h5 class="author">
-                                                                                <cite class="fn"><a href="#" rel="external nofollow" class="url">John Doe</a></cite>
-                                                                                - <a class="comment-reply-link" href="#">Reply</a>
-                                                                        </h5>
-
-                                                                        <p class="date">
-                                                                                <a href="http://knowledgebase.inspirythemes.com/integrating-wordpress-with-your-website/#comment-4">
-                                                                                        <time datetime="2013-02-26T13:27:04+00:00">February 26, 2013 at 1:27 pm</time>
-                                                                                </a>
-                                                                        </p>
-
-                                                                </div><!-- end .comment-meta -->
-
-                                                                <div class="comment-body">
-                                                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-                                                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
-                                                                </div><!-- end of comment-body -->
-
-                                                        </article><!-- end of comment -->
+                                                <br>
+                                            
+                                                <?php if($totalpage!=1) { ?>
+                                                    <li id="pagination">
+                                                    <?php if($page!=1){ ?>
+                                                        <a href="topicDetail.php?tid=<?php echo $tid; ?>&page=<?php echo $page-1;?>" class="btn">Previous</a>
+                                                    <?php } ?>
+                                                    <?php for($j=1;$j<=$totalpage;$j++) { 
+                                                            if($j==$page) { ?>
+                                                                <a href="topicDetail.php?tid=<?php echo $tid; ?>&page=<?php echo $j;?>" class="btn active"><?php echo $j;?></a>
+                                                            <?php } else {?>
+                                                                <a href="topicDetail.php?tid=<?php echo $tid; ?>&page=<?php echo $j;?>" class="btn"><?php echo $j;?></a>
+                                                            <?php } ?>
+                                                    <?php } ?>
+                                                    <?php if($page<$totalpage){ ?>
+                                                        <a href="topicDetail.php?tid=<?php echo $tid; ?>&page=<?php echo $page+1;?>" class="btn">Next</a>
+                                                    <?php } ?>                                                    
                                                 </li>
+                                                <?php } ?>
+
                                         </ol>
 
                                         <div id="respond">
 
                                                 <h3>Leave a Comment</h3>
 
-                                                <form action="/control/newComment.php?tid=<?php echo $tid ?>" method="post" id="commentform">
+                                                <form action="inc/newComment.php?tid=<?php echo $tid ?>" method="post" id="commentform">
 
                                                         <div>
                                                                 <label for="comment">Comment</label>
-                                                                <textarea class="span8" name="comment" id="comment" cols="58" rows="10"></textarea>
+                                                                <textarea class="span8" name="comment" id="comment" cols="58" rows="10" onkeyup="SwapTxt()"></textarea>
                                                         </div>
+
+                                                        <p class="allowed-tags">You can use these HTML tags and attributes <small><code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>
+
+                                                        <p id="lyny">You could preview your comment here.</p>
                                                         
                                                         <div>
                                                                 <input class="btn" name="submit" type="submit" id="submit"  value="Submit">

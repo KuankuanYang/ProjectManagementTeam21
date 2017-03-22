@@ -32,6 +32,7 @@
 		}
 	}
 
+<<<<<<< HEAD
 	//防止重复提交表单
 	$flag=mt_rand(0, 1000000);
 	$_SESSION['flag']=$flag;
@@ -47,6 +48,10 @@
 		unset($_POST['description']);
 		header("Location:/ProjectManagementTeam21/admin.php");
 	}
+=======
+	
+
+>>>>>>> origin/master
 ?>
 
 <!-- Start of Page Container -->
@@ -54,6 +59,7 @@
     <div class="container">
     	<div class="row">
         	<form action="admin.php" method="post">
+<<<<<<< HEAD
         		Topic ID:<input type="text" name="topicID">
         		<input type="submit" name="delete" value="Delete Topic">
         	</form>
@@ -63,14 +69,27 @@
         	  	<input type="hidden" name="originator" value="<?php echo $flag;?>"> <!--隐藏input数据，防止重复提交 -->
         		Topic Name:<input type="text" name="topicname"><br>
   				Topic Description:<input type="text" name="description"><br>
+=======
+        		Topic ID:<input type="text" name="ID">
+        		Delete Topic<input type="radio" name="operation" value="delete">
+  				Add Topic<input type="radio" name="operation" value="add">
+        		<input type="submit">
+>>>>>>> origin/master
         	</form>
         </div>
         <div class="row">
         	<table border="1">
+<<<<<<< HEAD
         		<tr><td>Topic ID</td><td>Topic Name</td><td>Description</td><td>Time</td></tr>
 	        	<?php 
 	        		foreach($arr as $value){ 
 						echo "<tr><td>".$value['catid']."</td><td>".$value['catName']."</td><td>".$value['catDesc']."</td><td>".$value['catTime']."</td></tr>"; 
+=======
+        		<tr><td>Topic ID</td><td>Topic Name</td><td>Description</td></tr>
+	        	<?php 
+	        		foreach($arr as $value){ 
+						echo "<tr><td>".$value['catid']."</td><td>".$value['catName']."</td><td>".$value['catDesc']."</td></tr>"; 
+>>>>>>> origin/master
 					} 
 	        	?>	
         	</table>
