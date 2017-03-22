@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_DEPRECATED);
 	//Database Info
 	$host = "localhost";
 	$user = "root";
