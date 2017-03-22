@@ -60,6 +60,11 @@ require("header.php");
 			                                        <h3><?php echo $userinfo['name']; ?></h3>
 			                                        <ul class="articles">
 			                                                <?php
+			                                                if($totalnum<1){
+			                                                ?>
+			                                                    <li><p>Oops! The user has not posted any topic yet.</p></li>
+			                                                <?php
+			                                                } else {
 			                                                $i = 1;
 
 			                                                for($i = 1; $i < $x; $i++)
@@ -91,8 +96,9 @@ require("header.php");
 			                                                        <a href="topicList.php?cid=<?php echo $catId; ?>&page=<?php echo $page+1;?>" class="btn">Next</a>
 			                                                    <?php } ?>                                                    
 			                                                </li>
-			                                                <?php } ?>
-			                                                
+			                                                <?php } 
+			                                            	}
+			                                                ?>
 			                                        </ul>
 			                                        
 			                                </section>
@@ -111,6 +117,12 @@ require("header.php");
 									                Gender: <?php echo $userinfo['gender']; ?></br>
 									                Email: <?php echo $userinfo['email']; ?></br>
 									                About: <?php echo $userinfo['about']; ?>
+									    		</p>
+									    		<p>
+									    			<?php if ($username==$userinfo['name']) { ?>
+									    			<a href="usersetting.php?userid=<?php echo $usId; ?>">Edit my information</a></br>
+									    			<a href="set_password.php?userid=<?php echo $usId; ?>">Change my password</a>
+									    			<?php } ?>
 									    		</p>
 									        </div>
  								        </section>

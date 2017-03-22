@@ -8,7 +8,7 @@ if(isset($_SESSION["username"])){
     $user=mysql_fetch_array($userinfo);
     $uid=$user['uid'];
     $name=$user['name'];
-    $admin=$user['isadmin'];
+    $admin=$user['isAdmin'];
 }
 
 $catId=$_GET["cid"];
@@ -85,6 +85,11 @@ require("header.php");
                                         <h3><?php echo $category['catName']; ?></h3>
                                         <ul class="articles">
                                                 <?php
+                                                if($totalnum<1){
+                                                ?>
+                                                    <li><p>Oops! There is no topic under this category yet.</p></li>
+                                                <?php
+                                                } else {
                                                 $i = 1;
 
                                                 for($i = 1; $i < $x; $i++)
@@ -96,6 +101,7 @@ require("header.php");
                                                         
                                                 </li>
                                                 <?php
+                                                    }
                                                 }
                                                 ?>
                                                 
@@ -128,8 +134,9 @@ require("header.php");
                                         <div id="respond">
 
                                                 <h4>New Topic</h4>
-
-                                                <form action="inc/newTopic.php?cid=<?php echo $catId ?>" method="post" id="newTopic" onsubmit="return doCheck()">
+                                                <?php
+                                                if(isset($_SESSION["username"])){ ?>
+                                                    <form action="inc/newTopic.php?cid=<?php echo $catId ?>" method="post" id="newTopic" onsubmit="return doCheck()">
 
                                                         <div>
                                                                 <label for="title">Title</label>
@@ -154,7 +161,9 @@ require("header.php");
                                                         </div>
 
                                                 </form>
-
+                                                <?php } else { ?>                                                
+                                                <p>Please log in before starting a new topic.</p>
+                                                <?php } ?>
                                         </div>
                                 </section>
 

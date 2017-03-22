@@ -1,9 +1,4 @@
 <?php 
-
-//Strip whitespace from the beginning and end of a string
-
-
-
 require("header.php");
 ?>
 

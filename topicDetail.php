@@ -29,7 +29,7 @@ $author=mysql_fetch_array($query2,MYSQL_ASSOC);
 $query4="select * from comment where topicId=$tid";
 $result=mysql_query($query4);
 $totalnum=mysql_num_rows($result);
-$pagesize=1;
+$pagesize=10;
 
 if(isset($_GET['page'])){
 $page=$_GET['page'];
@@ -171,23 +171,28 @@ require("header.php");
 
                                                 <h3>Leave a Comment</h3>
 
+                                                <?php
+                                                if(isset($_SESSION["username"])){ ?>
                                                 <form action="inc/newComment.php?tid=<?php echo $tid ?>" method="post" id="commentform">
 
-                                                        <div>
-                                                                <label for="comment">Comment</label>
-                                                                <textarea class="span8" name="comment" id="comment" cols="58" rows="10" onkeyup="SwapTxt()"></textarea>
-                                                        </div>
+                                                    <div>
+                                                            <label for="comment">Comment</label>
+                                                            <textarea class="span8" name="comment" id="comment" cols="58" rows="10" onkeyup="SwapTxt()"></textarea>
+                                                    </div>
 
-                                                        <p class="allowed-tags">You can use these HTML tags and attributes <small><code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>
+                                                    <p class="allowed-tags">You can use these HTML tags and attributes <small><code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>
 
-                                                        <p id="lyny">You could preview your comment here.</p>
-                                                        
-                                                        <div>
-                                                                <input class="btn" name="submit" type="submit" id="submit"  value="Submit">
-                                                                <input class="btn" name="reset" type="reset" id="reset" value="Reset">
-                                                        </div>
+                                                    <p id="lyny">You could preview your comment here.</p>
+                                                    
+                                                    <div>
+                                                            <input class="btn" name="submit" type="submit" id="submit"  value="Submit">
+                                                            <input class="btn" name="reset" type="reset" id="reset" value="Reset">
+                                                    </div>
 
                                                 </form>
+                                                <?php } else { ?>                                                
+                                                <p>Please log in before leaving a comment.</p>
+                                                <?php } ?>
 
                                         </div>
 
