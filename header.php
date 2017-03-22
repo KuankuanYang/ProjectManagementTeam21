@@ -60,7 +60,7 @@
 														</li>	
                                                         <?php } else { ?>
 														<li>
-														<a href="user.php?id=<?php echo $uid;?>">
+														<a href="">
                                                         <?php echo $name;?></a>
 														</li>
                                                         <?php if ($admin==1){ ?>

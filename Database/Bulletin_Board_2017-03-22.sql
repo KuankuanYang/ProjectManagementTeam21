@@ -49,8 +49,8 @@ DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
   `catid` int(11) NOT NULL AUTO_INCREMENT,
-  `catName` varchar(255) NOT NULL DEFAULT '' COMMENT 'The name of category',
-  `catTime` datetime DEFAULT NULL COMMENT 'The time of creation',
+  `catName` varchar(255) NOT NULL COMMENT 'The name of category',
+  `catTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT 'The time of creation',
   `catSet` int(11) NOT NULL DEFAULT '0',
   `catDesc` varchar(255) DEFAULT NULL COMMENT 'The description of category',
   PRIMARY KEY (`catid`)
