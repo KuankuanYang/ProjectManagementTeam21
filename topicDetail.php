@@ -96,7 +96,7 @@ require("header.php");
                                         <div class="post-meta clearfix">
                                                 <span class="date"><?php echo $topic['topTime']; ?></span>
                                                 <span class="category"><a href="categoryList.php?cid=<?php echo $category['catid']; ?>" title="View all posts"><?php echo $category['catName']; ?></a></span>
-                                                <span class="author"><?php echo $author['name'];?></span>
+                                                <span class="author"><a href="user.php?userid=<?php echo $author['uid']; ?>"><?php echo $author['name'];?></a></span>
                                                 <span class="comments"><a href="#" title="Comment on Integrating WordPress with Your Website"><?php echo $totalnum; ?> Comments</a></span>
 
                                         </div><!-- end of post meta -->

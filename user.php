@@ -31,16 +31,13 @@ $begin=($page-1)*$pagesize;
 $totalpage=ceil($totalnum/$pagesize);
 $datanum=mysql_num_rows($result);
 
-$query1=mysql_query("select * from topic,user where topic.userId=user.uid and topic.userId='$usId' order by topTime desc LIMIT $begin, $pagesize");
+$query1=mysql_query("select * from topic,user,category where topic.userId=user.uid and topic.categoryId=category.catid and user.uid='$usId' order by topTime desc LIMIT $begin, $pagesize");
 $new=array();
 $x=1;
 while($row = mysql_fetch_array($query1,MYSQL_ASSOC)){
     $new[$x] = $row;
     $x++;
 }
-
-$query2=mysql_query("select catName from category where catid='$catId'");
-$category=mysql_fetch_array($query2,MYSQL_ASSOC);
 
 $query3=mysql_query("select * from user where uid='$usId'");
 $userinfo=mysql_fetch_array($query3,MYSQL_ASSOC);
@@ -60,7 +57,7 @@ require("header.php");
                                         <!-- Basic Home Page Template -->
                                         <div class="row separator">
 			                                <section class="span8">
-			                                        <h3><?php echo $category['catName']; ?></h3>
+			                                        <h3><?php echo $userinfo['name']; ?></h3>
 			                                        <ul class="articles">
 			                                                <?php
 			                                                $i = 1;
@@ -70,8 +67,7 @@ require("header.php");
 			                                                ?>
 			                                                <li class="article-entry standard">
 			                                                        <h4><a href="topicDetail.php?tid=<?php echo $new[$i]['tid']; ?>"><?php echo $new[$i]['title']; ?></a></h4>
-			                                                        <span class="article-meta"><?php echo $new[$i]['topTime']; ?> - <a href="#"><?php echo $new[$i]['name']; ?></a></span>
-			                                                        
+			                                                        <span class="article-meta"><?php echo $new[$i]['topTime']; ?> in <a href="topicList.php?cid=<?php echo $new[$i]['catid']?>"><?php echo $new[$i]['catName']; ?></a></span>
 			                                                </li>
 			                                                <?php
 			                                                }

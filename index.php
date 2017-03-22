@@ -44,7 +44,7 @@ require("header.php");
                                                                 ?>
                                                                 <li class="article-entry standard">
                                                                         <h4><a href="topicDetail.php?tid=<?php echo $new[$i]['tid']; ?>"><?php echo $new[$i]['title']; ?></a></h4>
-                                                                        <span class="article-meta"><?php echo $new[$i]['topTime']; ?> - <a href="user.php?userid=<?php echo $new[$i]['uid']?>"><?php echo $new[$i]['name']; ?></a> in <a href="topicList.php?cid=<?php echo $new[$i]['catid']?>"><?php echo $new[$i]['catName']; ?></a></span>
+                                                                        <span class="article-meta"><a href="user.php?userid=<?php echo $new[$i]['uid']?>"><?php echo $new[$i]['name']; ?></a> at <?php echo $new[$i]['topTime']; ?> in <a href="topicList.php?cid=<?php echo $new[$i]['catid']?>"><?php echo $new[$i]['catName']; ?></a></span>
                                                                         
                                                                 </li>
                                                                 <?php
