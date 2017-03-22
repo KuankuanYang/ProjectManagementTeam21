@@ -1,6 +1,20 @@
                 <!-- Start of Footer -->
                 <footer id="footer-wrapper">
-                        
+                        <div id="footer" class="container">
+                                <div class="row">
+
+                                        <div class="span10">
+                                                <section class="widget">
+                                                        <h3 class="title">How it works</h3>
+                                                        <div class="textwidget">
+                                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                                                                <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                                                        </div>
+                                                </section>
+                                        </div>
+
+                                </div>
+                        </div>
                         <!-- end of #footer -->
 
                         <!-- Footer Bottom -->
