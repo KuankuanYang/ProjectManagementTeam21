@@ -3,23 +3,43 @@ session_start();
 include("inc/connectDB.php");
 
 if(isset($_SESSION["username"])){
-$username=$_SESSION["username"];
-$userinfo=mysql_query("select * from user where username='$username'");
-$user=mysql_fetch_array($userinfo);
-$uid=$user['uid'];
-$name=$user['name'];
-$admin=$user['isadmin'];
+    $username=$_SESSION["username"];
+    $userinfo=mysql_query("select * from user where username='$username'");
+    $user=mysql_fetch_array($userinfo);
+    $uid=$user['uid'];
+    $name=$user['name'];
+    $admin=$user['isadmin'];
 }
 
 $catId=$_GET["cid"];
 
-$query=mysql_query("select * from topic,user where topic.userId=user.uid and categoryId='$catId'");
+$query="select * from topic where categoryId='$catId'";
+$result=mysql_query($query);
+$totalnum=mysql_num_rows($result);
+$pagesize=10;
+
+if(isset($_GET['page'])){
+$page=$_GET['page'];
+}
+//$page=$_GET["page"];
+if(isset($page)==""){
+$page=1;
+}
+
+$begin=($page-1)*$pagesize;
+$totalpage=ceil($totalnum/$pagesize);
+$datanum=mysql_num_rows($result);
+
+$query1=mysql_query("select * from topic,user where topic.userId=user.uid and categoryId='$catId' order by topTime desc LIMIT $begin, $pagesize");
 $new=array();
 $x=1;
-while($row = mysql_fetch_array($query,MYSQL_ASSOC)){
-        $new[$x] = $row;
-        $x++;
+while($row = mysql_fetch_array($query1,MYSQL_ASSOC)){
+    $new[$x] = $row;
+    $x++;
 }
+
+$query2=mysql_query("select catName from category where catid='$catId'");
+$category=mysql_fetch_array($query2,MYSQL_ASSOC);
 
 //print_r($new[1]['name']);
 
@@ -62,7 +82,7 @@ require("header.php");
                         <!-- Basic Home Page Template -->
                         <div class="row separator">
                                 <section class="span8">
-                                        <h3>Featured Articles</h3>
+                                        <h3><?php echo $category['catName']; ?></h3>
                                         <ul class="articles">
                                                 <?php
                                                 $i = 1;
@@ -80,14 +100,25 @@ require("header.php");
                                                 ?>
                                                 
                                                 <br>
-                                                
-                                                <li id="pagination">
-                                                        <a href="#" class="btn active">1</a>
-                                                        <a href="#" class="btn">2</a>
-                                                        <a href="#" class="btn">3</a>
-                                                        <a href="#" class="btn">Next »</a>
-                                                        <a href="#" class="btn">Last »</a>
+                                            
+                                                <?php if($totalpage!=1) { ?>
+                                                    <li id="pagination">
+                                                    <?php if($page!=1){ ?>
+                                                        <a href="topicList.php?cid=<?php echo $catId; ?>&page=<?php echo $page-1;?>" class="btn">Previous</a>
+                                                    <?php } ?>
+                                                    <?php for($j=1;$j<=$totalpage;$j++) { 
+                                                            if($j==$page) { ?>
+                                                                <a href="topicList.php?cid=<?php echo $catId; ?>&page=<?php echo $j;?>" class="btn active"><?php echo $j;?></a>
+                                                            <?php } else {?>
+                                                                <a href="topicList.php?cid=<?php echo $catId; ?>&page=<?php echo $j;?>" class="btn"><?php echo $j;?></a>
+                                                            <?php } ?>
+                                                    <?php } ?>
+                                                    <?php if($page<$totalpage){ ?>
+                                                        <a href="topicList.php?cid=<?php echo $catId; ?>&page=<?php echo $page+1;?>" class="btn">Next</a>
+                                                    <?php } ?>                                                    
                                                 </li>
+                                                <?php } ?>
+                                                
                                         </ul>
                                         
                                 </section>
@@ -96,7 +127,7 @@ require("header.php");
                                 <section class="span8">
                                         <div id="respond">
 
-                                                <h3>New Topic</h3>
+                                                <h4>New Topic</h4>
 
                                                 <form action="inc/newTopic.php?cid=<?php echo $catId ?>" method="post" id="newTopic" onsubmit="return doCheck()">
 
@@ -115,7 +146,7 @@ require("header.php");
 
                                                         <p class="allowed-tags">You can use these HTML tags and attributes <small><code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>
 
-                                                        <p id="lyny">You could preview your content here.</p><!--//这个地方是同步显示内容的 -->
+                                                        <p id="lyny">You could preview your content here.</p>
 
                                                         <div>
                                                                 <input class="btn" name="submit" type="submit" id="submit"  value="Submit">

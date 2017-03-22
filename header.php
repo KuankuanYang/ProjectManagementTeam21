@@ -13,7 +13,7 @@
                 
 
                 <!-- Style Sheet-->
-                <link rel="stylesheet" href="style.css"/>
+                <link rel="stylesheet" href="style.css" type='text/css' media='all' />
                 <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
@@ -60,7 +60,7 @@
 														</li>	
                                                         <?php } else { ?>
 														<li>
-														<a href="user.php?id=<?php echo $uid;?>">
+														<a href="user.php?userid=<?php echo $uid;?>">
                                                         <?php echo $name;?></a>
 														</li>
                                                         <?php if ($admin==1){ ?>

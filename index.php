@@ -4,12 +4,20 @@ include "inc/connectDB.php";
 
 //头部导航
 if(isset($_SESSION["username"])){
-$username=$_SESSION["username"];
-$userinfo=mysql_query("select * from user where username='$username'");
-$user=mysql_fetch_array($userinfo);
-$uid=$user['uid'];
-$name=$user['name'];
-$admin=$user['isAdmin'];
+        $username=$_SESSION["username"];
+        $userinfo=mysql_query("select * from user where username='$username'");
+        $user=mysql_fetch_array($userinfo);
+        $uid=$user['uid'];
+        $name=$user['name'];
+        $admin=$user['isAdmin'];
+}
+
+$query1=mysql_query("select * from topic,user,category where topic.userId=user.uid and topic.categoryId=category.catid order by topTime desc LIMIT 0, 10");
+$new=array();
+$x=1;
+while($row = mysql_fetch_array($query1,MYSQL_ASSOC)){
+    $new[$x] = $row;
+    $x++;
 }
 
 require("header.php");
@@ -25,75 +33,23 @@ require("header.php");
 
                                         <!-- Basic Home Page Template -->
                                         <div class="row separator">
-                                                <section class="span4 articles-list">
-                                                        <h3>Featured Articles</h3>
+                                                <section class="span8 articles-list">
+                                                        <h3>Latest Topics</h3>
                                                         <ul class="articles">
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
-                                                                        <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                                                        <span class="like-count">66</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">WordPress Site Maintenance</a></h4>
-                                                                        <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">15</span>
-                                                                </li>
-                                                                <li class="article-entry video">
-                                                                        <h4><a href="single.html">Meta Tags in WordPress</a></h4>
-                                                                        <span class="article-meta">23 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">8</span>
-                                                                </li>
-                                                                <li class="article-entry image">
-                                                                        <h4><a href="single.html">WordPress in Your Language</a></h4>
-                                                                        <span class="article-meta">22 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                                                        <span class="like-count">6</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">Know Your Sources</a></h4>
-                                                                        <span class="article-meta">22 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">2</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">Validating a Website</a></h4>
-                                                                        <span class="article-meta">21 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">3</span>
-                                                                </li>
-                                                        </ul>
-                                                </section>
+                                                        <?php
+                                                                $i = 1;
 
-                                                <section class="span4 articles-list">
-                                                        <h3>Latest Articles</h3>
-                                                        <ul class="articles">
+                                                                for($i = 1; $i < $x; $i++)
+                                                                {
+                                                                ?>
                                                                 <li class="article-entry standard">
-                                                                        <h4><a href="single.html">Integrating WordPress with Your Website</a></h4>
-                                                                        <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                                                        <span class="like-count">66</span>
+                                                                        <h4><a href="topicDetail.php?tid=<?php echo $new[$i]['tid']; ?>"><?php echo $new[$i]['title']; ?></a></h4>
+                                                                        <span class="article-meta"><?php echo $new[$i]['topTime']; ?> - <a href="user.php?userid=<?php echo $new[$i]['uid']?>"><?php echo $new[$i]['name']; ?></a> in <a href="topicList.php?cid=<?php echo $new[$i]['catid']?>"><?php echo $new[$i]['catName']; ?></a></span>
+                                                                        
                                                                 </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">Using Javascript</a></h4>
-                                                                        <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                                                        <span class="like-count">18</span>
-                                                                </li>
-                                                                <li class="article-entry image">
-                                                                        <h4><a href="single.html">Using Images</a></h4>
-                                                                        <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Designing in WordPress">Designing in WordPress</a></span>
-                                                                        <span class="like-count">7</span>
-                                                                </li>
-                                                                <li class="article-entry video">
-                                                                        <h4><a href="single.html">Using Video</a></h4>
-                                                                        <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in WordPress Plugins">WordPress Plugins</a></span>
-                                                                        <span class="like-count">7</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">WordPress Site Maintenance</a></h4>
-                                                                        <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">15</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.html">WordPress CSS Information and Techniques</a></h4>
-                                                                        <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Theme Development">Theme Development</a></span>
-                                                                        <span class="like-count">1</span>
-                                                                </li>
+                                                                <?php
+                                                                }
+                                                        ?>
                                                         </ul>
                                                 </section>
                                         </div>
